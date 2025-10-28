@@ -10,7 +10,7 @@ require_once '../Tabela/TabelaPessoa.php';
 $tabelaPessoa = new TabelaPessoa();
 
 // --- Inserção ---
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'inserir') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pessoa = new Pessoa($_POST['nome'], $_POST['telefone'], $_POST['endereco']);
     $tabelaPessoa->inserirPessoa($pessoa);
 

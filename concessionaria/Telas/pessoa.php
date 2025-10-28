@@ -31,14 +31,13 @@ $pessoas = $tabelaPessoa->buscarPessoas();
 <h1>Gerenciar Pessoas</h1>
 
 <!-- Formulário de inserção -->
-<form method="POST" action="../Controlador/PessoaControlador.php">
-    <input type="hidden" name="acao" value="inserir">
+<form id="form1" method="POST" action="../Controlador/PessoaControlador.php">
     <label>Nome:</label>
-    <input type="text" name="nome" required>
+    <input type="text" name="nome" id="nome" required>
     <label>Telefone:</label>
-    <input type="text" name="telefone" required>
+    <input type="text" name="telefone" id="telefone" required>
     <label>Endereço:</label>
-    <input type="text" name="endereco" required>
+    <input type="text" name="endereco" id="endereco" required>
     <button type="submit">Adicionar</button>
 </form>
 
@@ -60,10 +59,29 @@ $pessoas = $tabelaPessoa->buscarPessoas();
             <td><?= $p->endereco ?></td>
             <td>
                 <a href="../Controlador/PessoaControlador.php?delete=<?= $p->id ?>" onclick="return confirm('Deseja realmente excluir?')">Excluir</a>
+                <button onclick='editar(<?= json_encode($p) ?>)'>Editar</button>
             </td>
         </tr>
     <?php endforeach; ?>
 </table>
 
+<script type="application/javascript">
+    function editar(pessoa) {
+        if(document.getElementById("id") == null){
+            formulario = document.getElementById("form1");
+            inputHidden = document.createElement("input");
+            inputHidden.type = "hidden";
+            inputHidden.name = "id";
+            inputHidden.id = "id";
+            formulario.appendChild(inputHidden);
+        } else {
+            inputHidden = document.getElementById("id");
+        }
+        inputHidden.value = pessoa.id;
+        document.getElementById("nome").value = pessoa.nome;
+        document.getElementById("telefone").value = pessoa.telefone;
+        document.getElementById("endereco").value = pessoa.endereco;
+    }
+</script>
 </body>
 </html>
